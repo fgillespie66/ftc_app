@@ -29,19 +29,32 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
-package com.qualcomm.ftcrobotcontroller.opmodes;
+/*package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.ServoController;
+
+
+/**
+ * TeleOp Code
+ * By Rachael H. and Saranya T.
+ * Created on 20 November 2015
+ */
+
 
 /**
  * TeleOp Mode
  * <p>
  * Enables control of the robot via the gamepad
  */
+/*
+/*
 public class K9TankDrive extends OpMode {
+ */
 
 	/*
 	 * Note: the configuration of the servos is such that
@@ -49,31 +62,81 @@ public class K9TankDrive extends OpMode {
 	 * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
 	 */
     // TETRIX VALUES.
-    final static double ARM_MIN_RANGE  = 0.20;
+    /*final static double ARM_MIN_RANGE  = 0.20;
     final static double ARM_MAX_RANGE  = 0.90;
     final static double CLAW_MIN_RANGE  = 0.20;
     final static double CLAW_MAX_RANGE  = 0.7;
+	float left;
+	float right;
+	float arm1;
+	float arm2;
+
 
 	// position of the arm servo.
-	double armPosition;
+	//double armPosition;
 
 	// amount to change the arm servo position.
-	double armDelta = 0.1;
+	//double armDelta = 0.1;
 
 	// position of the claw servo
-	double clawPosition;
+	//double clawPosition;
 
 	// amount to change the claw servo position by
-	double clawDelta = 0.1;
+	//double clawDelta = 0.1;
 
-	DcMotor motorRight;
-	DcMotor motorLeft;
-	Servo claw;
-	Servo arm;
+	float motorPowerArm = 0;
+	float motorPowerTreadLeft = 0;
+	float motorPowerTreadRight = 0;
+	float motorPowerAutonomous = 0;
+	float motorPowerPullupLeft = 0;
+	float motorPowerPullupRight = 0;
+	float motorPowerPivotLeft = 0;
+	float motorPowerPivotRight = 0;
 
-	/**
+	// DcMotorController.DeviceMode devMode;
+
+	DcMotorController MotorController1;
+	DcMotor motorTreadRight;
+	DcMotor motorTreadLeft;
+
+	DcMotorController MotorController2;
+	DcMotor motorArm;
+	DcMotor motorAutonomous;
+
+	DcMotorController MotorController3;
+	DcMotor motorPullupRight;
+	DcMotor motorPullupLeft;
+
+	DcMotorController MotorController4;
+	DcMotor motorPivotRight;
+	DcMotor motorPivotLeft;
+
+	ServoController ServoController1;
+	Servo leftShovel;
+	Servo rightShovel;
+	Servo leftWindshieldWiper;
+	Servo rightWindshieldWiper;
+	Servo shovelVertical1;
+	Servo shovelVertical2;
+
+	ServoController ServoController2;
+	Servo sideFlap;
+
+	//this initializes the boolean
+	int reverse = 0;
+	boolean up = false;
+	// float wristPosition = 0;
+	float sweeperLeft = 0;
+	float sweeperRight = 0;
+	float temp;
+
+	//Servo claw;
+	//Servo arm;
+
+	/*
 	 * Constructor
 	 */
+	/*
 	public K9TankDrive() {
 
 	}
@@ -83,6 +146,8 @@ public class K9TankDrive extends OpMode {
 	 * 
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
 	 */
+
+	/*
 	@Override
 	public void init() {
 		/*
@@ -101,16 +166,55 @@ public class K9TankDrive extends OpMode {
 		 *    "servo_1" controls the arm joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
-		motorRight = hardwareMap.dcMotor.get("motor_2");
-		motorLeft = hardwareMap.dcMotor.get("motor_1");
-		motorLeft.setDirection(DcMotor.Direction.REVERSE);
-		
+
+		/*
+		MotorController1 = hardwareMap.dcMotorController.get("MotorController1");
+		motorTreadRight = hardwareMap.dcMotor.get("motor_2");
+		motorTreadLeft = hardwareMap.dcMotor.get("motor_1");
+
+		MotorController2 = hardwareMap.dcMotorController.get("MotorController2");
+		motorArm = hardwareMap.dcMotor.get("motor_7");
+		motorAutonomous  = hardwareMap.dcMotor.get("motor_8");
+
+		MotorController3 = hardwareMap.dcMotorController.get("MotorController3");
+		motorPullupRight = hardwareMap.dcMotor.get("motor_3");
+		motorPullupLeft = hardwareMap.dcMotor.get("motor_4");
+
+		MotorController4 = hardwareMap.dcMotorController.get("MotorController4");
+		motorPivotRight = hardwareMap.dcMotor.get("motor_5");
+		motorPivotLeft = hardwareMap.dcMotor.get("motor_6");
+
+		motorTreadLeft.setDirection(DcMotor.Direction.FORWARD);
+		motorTreadRight.setDirection(DcMotor.Direction.FORWARD);
+		motorArm.setDirection(DcMotor.Direction.FORWARD);
+		motorAutonomous.setDirection(DcMotor.Direction.FORWARD);
+		motorPullupRight.setDirection(DcMotor.Direction.FORWARD);
+		motorPullupLeft.setDirection(DcMotor.Direction.FORWARD);
+		motorPivotRight.setDirection(DcMotor.Direction.FORWARD);
+		motorPivotLeft.setDirection(DcMotor.Direction.FORWARD);
+
+		ServoController1 = hardwareMap.servoController.get("ServoController1");
+		leftShovel = hardwareMap.servo.get("leftShovel");
+		rightShovel = hardwareMap.servo.get("rightShovel");
+		leftWindshieldWiper = hardwareMap.servo.get("leftWindshieldWiper");
+		rightWindshieldWiper = hardwareMap.servo.get("rightWindshieldWiper");
+		shovelVertical1 = hardwareMap.servo.get("shovelVertical1");
+		shovelVertical2 = hardwareMap.servo.get("shovelVertical2");
+
+		ServoController2 = hardwareMap.servoController.get("ServoController2");
+		sideFlap = hardwareMap.servo.get("sideFlap");
+
+		/*
 		arm = hardwareMap.servo.get("servo_1");
 		claw = hardwareMap.servo.get("servo_6");
+		*/
 
+		/*
 		// assign the starting position of the wrist and claw
 		armPosition = 0.2;
 		clawPosition = 0.2;
+		*/
+/*
 	}
 
 	/*
@@ -118,6 +222,7 @@ public class K9TankDrive extends OpMode {
 	 * 
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#run()
 	 */
+/*
 	@Override
 	public void loop() {
 
@@ -130,8 +235,8 @@ public class K9TankDrive extends OpMode {
 
         // tank drive
         // note that if y equal -1 then joystick is pushed all of the way forward.
-        float left = -gamepad1.left_stick_y;
-        float right = -gamepad1.right_stick_y;
+        /*left = -gamepad1.left_stick_y;
+		right = -gamepad1.right_stick_y;
 
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
@@ -143,29 +248,90 @@ public class K9TankDrive extends OpMode {
 		left =  (float)scaleInput(left);
 		
 		// write the values to the motors
-		motorRight.setPower(right);
-		motorLeft.setPower(left);
+		motorTreadRight.setPower(right);
+		motorTreadLeft.setPower(left);
 
+		// True = 1, and false = 0
+		temp = gamepad1.left_trigger;
+		// Gives a decimal
+		temp = Math.round(temp);
+		// Rounds to either 0 or 1
+		reverse = (int)temp;
+
+		if (reverse == 1) {
+			// Special thing for reversing everything
+			// Left trigger reverses everything
+			// Test whether x must be continually held or only pressed once
+			motorTreadLeft.setDirection(DcMotor.Direction.REVERSE);
+			motorTreadRight.setDirection(DcMotor.Direction.REVERSE);
+		}
+		else {
+			motorTreadLeft.setDirection(DcMotor.Direction.FORWARD);
+			motorTreadRight.setDirection(DcMotor.Direction.FORWARD);
+		}
+
+		if (gamepad2.x) {
+			motorArm.setPower(1);
+			motorPowerArm = 1;
+		}
+
+		else {
+			motorArm.setPower(0);
+		}
+
+		motorPowerTreadLeft = gamepad1.left_stick_y;
+		motorPowerTreadRight = gamepad1.right_stick_y;
+		motorPowerTreadRight = Range.clip(motorPowerTreadRight, -1, 1);
+		motorPowerTreadLeft = Range.clip(motorPowerTreadLeft, -1, 1);
+
+		motorPowerTreadRight = (float)scaleInput(motorPowerTreadRight);
+		motorPowerTreadLeft = (float)scaleInput(motorPowerTreadLeft);
+
+		motorTreadLeft.setPower(motorPowerTreadLeft);
+		motorTreadRight.setPower(motorPowerTreadRight);
+
+		if (gamepad2.dpad_left) {
+			//left part of cross
+			sweeperLeft += 10;
+			leftWindshieldWiper.setPosition(sweeperLeft);
+		}
+		if (gamepad2.dpad_right) {
+			//right part of cross
+			sweeperLeft -= 10;
+			leftWindshieldWiper.setPosition(sweeperLeft);
+		}
+		if (gamepad2.x) {
+			sweeperRight += 10;
+			rightWindshieldWiper.setPosition(sweeperRight);
+		}
+		if (gamepad2.b) {
+			sweeperRight -= 10;
+			rightWindshieldWiper.setPosition(sweeperRight);
+		}
+
+		/*
 		// update the position of the arm.
 		if (gamepad1.a) {
 			// if the A button is pushed on gamepad1, increment the position of
 			// the arm servo.
-			armPosition += armDelta;
+			// armPosition += armDelta;
 		}
 
 		if (gamepad1.y) {
 			// if the Y button is pushed on gamepad1, decrease the position of
 			// the arm servo.
-			armPosition -= armDelta;
+			// armPosition -= armDelta;
 		}
+		*/
 
+		/*
         // update the position of the claw
         if (gamepad1.left_bumper) {
-            clawPosition += clawDelta;
+            // clawPosition += clawDelta;
         }
 
         if (gamepad1.left_trigger > 0.25) {
-            clawPosition -= clawDelta;
+            // clawPosition -= clawDelta;
         }
 
         if (gamepad1.b) {
@@ -188,6 +354,7 @@ public class K9TankDrive extends OpMode {
 		// write position values to the wrist and claw servo
 		arm.setPosition(armPosition);
 		claw.setPosition(clawPosition);
+		*/
 
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
@@ -196,7 +363,7 @@ public class K9TankDrive extends OpMode {
 		 * are currently write only.
 		 */
 
-		telemetry.addData("Text", "*** Robot Data***");
+		/*telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("arm", "arm:  " + String.format("%.2f", armPosition));
         telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
 		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
@@ -208,7 +375,7 @@ public class K9TankDrive extends OpMode {
 	 * 
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#stop()
 	 */
-	@Override
+	/*@Override
 	public void stop() {
 
 	}
@@ -218,7 +385,7 @@ public class K9TankDrive extends OpMode {
 	 * scaled value is less than linear.  This is to make it easier to drive
 	 * the robot more precisely at slower speeds.
 	 */
-	double scaleInput(double dVal)  {
+	/*double scaleInput(double dVal)  {
 		double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
 				0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };
 		
@@ -247,4 +414,4 @@ public class K9TankDrive extends OpMode {
 		return dScale;
 	}
 
-}
+}*/

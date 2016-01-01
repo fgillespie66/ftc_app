@@ -1,4 +1,4 @@
-/* Copyright (c) 2014 Qualcomm Technologies Inc
+/*/* Copyright (c) 2014 Qualcomm Technologies Inc
 
 All rights reserved.
 
@@ -29,28 +29,27 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
-package com.qualcomm.ftcrobotcontroller.opmodes;
+/*package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-//importing special kinds of classes
 
 /**
  * TeleOp Mode
  * <p>
  * Enables control of the robot via the gamepad
  */
-public class K9TeleOp extends OpMode {
-	
+/*public class PositiveChargeDriveOnly extends OpMode {
+
 	/*
 	 * Note: the configuration of the servos is such that
 	 * as the arm servo approaches 0, the arm position moves up (away from the floor).
 	 * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
 	 */
 	// TETRIX VALUES.
-	final static double ARM_MIN_RANGE  = 0.20;
+	/*final static double ARM_MIN_RANGE  = 0.20;
 	final static double ARM_MAX_RANGE  = 0.90;
 	final static double CLAW_MIN_RANGE  = 0.20;
 	final static double CLAW_MAX_RANGE  = 0.7;
@@ -69,13 +68,11 @@ public class K9TeleOp extends OpMode {
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
-	Servo claw;
-	Servo arm;
 
 	/**
 	 * Constructor
 	 */
-	public K9TeleOp() {
+	/*public PositiveChargeDriveOnly() {
 
 	}
 
@@ -84,7 +81,7 @@ public class K9TeleOp extends OpMode {
 	 * 
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
 	 */
-	@Override
+	/*@Override
 	public void init() {
 
 
@@ -104,16 +101,9 @@ public class K9TeleOp extends OpMode {
 		 *    "servo_1" controls the arm joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
-		motorRight = hardwareMap.dcMotor.get("motor_2");
+		/*motorRight = hardwareMap.dcMotor.get("motor_2");
 		motorLeft = hardwareMap.dcMotor.get("motor_1");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
-		
-		arm = hardwareMap.servo.get("servo_1");
-		claw = hardwareMap.servo.get("servo_6");
-
-		// assign the starting position of the wrist and claw
-		armPosition = 0.2;
-		clawPosition = 0.2;
 	}
 
 	/*
@@ -121,7 +111,7 @@ public class K9TeleOp extends OpMode {
 	 * 
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#run()
 	 */
-	@Override
+	/*@Override
 	public void loop() {
 
 		/*
@@ -135,7 +125,7 @@ public class K9TeleOp extends OpMode {
 		// 1 is full down
 		// direction: left_stick_x ranges from -1 to 1, where -1 is full left
 		// and 1 is full right
-		float throttle = -gamepad1.left_stick_y;
+		/*float throttle = -gamepad1.left_stick_y;
 		float direction = gamepad1.left_stick_x;
 		float right = throttle - direction;
 		float left = throttle + direction;
@@ -153,35 +143,6 @@ public class K9TeleOp extends OpMode {
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-		// update the position of the arm.
-		if (gamepad1.a) {
-			// if the A button is pushed on gamepad1, increment the position of
-			// the arm servo.
-			armPosition += armDelta;
-		}
-
-		if (gamepad1.y) {
-			// if the Y button is pushed on gamepad1, decrease the position of
-			// the arm servo.
-			armPosition -= armDelta;
-		}
-
-		// update the position of the claw
-		if (gamepad1.x) {
-			clawPosition += clawDelta;
-		}
-
-		if (gamepad1.b) {
-			clawPosition -= clawDelta;
-		}
-
-        // clip the position values so that they never exceed their allowed range.
-        armPosition = Range.clip(armPosition, ARM_MIN_RANGE, ARM_MAX_RANGE);
-        clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
-
-		// write position values to the wrist and claw servo
-		arm.setPosition(armPosition);
-		claw.setPosition(clawPosition);
 
 
 
@@ -191,9 +152,7 @@ public class K9TeleOp extends OpMode {
 		 * will return a null value. The legacy NXT-compatible motor controllers
 		 * are currently write only.
 		 */
-        telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("arm", "arm:  " + String.format("%.2f", armPosition));
-        telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
+        /*telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
 
@@ -204,7 +163,7 @@ public class K9TeleOp extends OpMode {
 	 * 
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#stop()
 	 */
-	@Override
+	/*@Override
 	public void stop() {
 
 	}
@@ -215,7 +174,7 @@ public class K9TeleOp extends OpMode {
 	 * scaled value is less than linear.  This is to make it easier to drive
 	 * the robot more precisely at slower speeds.
 	 */
-	double scaleInput(double dVal)  {
+	/*double scaleInput(double dVal)  {
 		double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
 				0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };
 		
@@ -244,4 +203,4 @@ public class K9TeleOp extends OpMode {
 		return dScale;
 	}
 
-}
+}*/

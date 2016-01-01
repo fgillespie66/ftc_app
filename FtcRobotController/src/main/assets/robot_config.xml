@@ -1,1 +1,51 @@
-<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><Robot><MOTOR_CONTROLLER name="Motor Controller 1" serialNumber="7" port="0"><MOTOR name="NO DEVICE ATTACHED" port="1" /><MOTOR name="NO DEVICE ATTACHED" port="2" /></MOTOR_CONTROLLER><SERVO_CONTROLLER name="Servo Controller 2" serialNumber="6" port="0"><SERVO name="NO DEVICE ATTACHED" port="1" /><SERVO name="NO DEVICE ATTACHED" port="2" /><SERVO name="NO DEVICE ATTACHED" port="3" /><SERVO name="NO DEVICE ATTACHED" port="4" /><SERVO name="NO DEVICE ATTACHED" port="5" /><SERVO name="NO DEVICE ATTACHED" port="6" /></SERVO_CONTROLLER><LEGACY_MODULE_CONTROLLER name="Legacy Module 3" serialNumber="5"><NOTHING name="NO DEVICE ATTACHED" port="1" /><NOTHING name="NO DEVICE ATTACHED" port="2" /><NOTHING name="NO DEVICE ATTACHED" port="3" /><NOTHING name="NO DEVICE ATTACHED" port="4" /><NOTHING name="NO DEVICE ATTACHED" port="5" /><NOTHING name="NO DEVICE ATTACHED" port="6" /></LEGACY_MODULE_CONTROLLER></Robot>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Robot>
+    <MOTOR_CONTROLLER name="motorController1" serialNumber="M504753" port="5">
+        <MOTOR name="motorTreadRight" port="1" /> //Changed motor name
+        <MOTOR name="motorTreadLeft" port="2" /> //Changed motor name
+    </MOTOR_CONTROLLER>
+    <!--<MOTOR_CONTROLLER name="motorController2" serialNumber="M504932" port="6">
+        <MOTOR name="motorArm" port="1" /> //Changed motor name
+        <!--<MOTOR name="motorAutonomous" port="2" /> //Changed motor name -->
+        <!--<MOTOR name="NO DEVICE ATTACHED" port="2" />-->
+    <!--</MOTOR_CONTROLLER>-->
+    <!--<MOTOR_CONTROLLER name="motorController3" serialNumber="" port="1"> //Added controller
+        <MOTOR name="motorPullupLeft" port="1" /> //Changed motor name
+        <MOTOR name="motorPullupRight" port="2" /> //Changed motor name
+    </MOTOR_CONTROLLER>-->
+    <!--<MOTOR_CONTROLLER name="motorController4" serialNumber="" port="1"> //Added controller
+        <MOTOR name="motorPivotRight" port="1" /> //Changed motor name
+        <MOTOR name="motorPivotLeft" port="2" /> //Changed motor name
+    </MOTOR_CONTROLLER>-->
+    <SERVO_CONTROLLER name="servoController1" serialNumber="S502859" port="4">
+        <SERVO name="leftWindshieldWiper" port="1" />
+        <!--<SERVO name="rightWindshieldWiper" port="6" />-->
+        <SERVO name="sideFlap" port="6" />
+        <!--<SERVO name="leftShovel" port="2" />-->
+        <SERVO name="NO DEVICE ATTACHED" port="2" />
+        <!--<SERVO name="rightShovel" port="5" />-->
+        <SERVO name="NO DEVICE ATTACHED" port="5" />
+        <SERVO name="shovelVertical1" port="3" />
+        <SERVO name="shovelVertical2" port="4" />
+    </SERVO_CONTROLLER>
+    <!--<SERVO_CONTROLLER name="servoController2" serialNumber="" port="1">
+        <SERVO name="sideFlap" port="1" />
+        <SERVO name="NO DEVICE ATTACHED" port="2" />
+        <SERVO name="NO DEVICE ATTACHED" port="3" />
+        <SERVO name="NO DEVICE ATTACHED" port="4" />
+        <SERVO name="NO DEVICE ATTACHED" port="5" />
+        <SERVO name="NO DEVICE ATTACHED" port="6" />
+    </SERVO_CONTROLLER>-->
+    <!--<LEGACY_MODULE_CONTROLLER name="legacyModule" serialNumber="5">
+        <NOTHING name="NO DEVICE ATTACHED" port="1" />
+        <NOTHING name="NO DEVICE ATTACHED" port="2" />
+        <NOTHING name="NO DEVICE ATTACHED" port="3" />
+        <NOTHING name="NO DEVICE ATTACHED" port="4" />
+        <NOTHING name="NO DEVICE ATTACHED" port="5" />
+        <NOTHING name="NO DEVICE ATTACHED" port="6" />
+    </LEGACY_MODULE_CONTROLLER>-->
+</Robot>
+
+    //Used to ensure that all hardware is connected correctly
+    //Using legacy module until new motor controllers are ordered
+    //Removed code
